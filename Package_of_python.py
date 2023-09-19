@@ -57,48 +57,54 @@ if data is not None :
     data=data.drop(colsLinea,axis=1)
     list_of_data=data.columns
     st.write(data)
-st.text('Target Column')
-if data is not None: 
-    Target_Column= st.selectbox("Choics the column that you want to predict",
-                    list_of_data)
 
 # Detect column type
-    column_type = data[Target_Column].dtype
+    # column_type = data[Target_Column].dtype
 
 # Determine task type based on column type
-    if pd.api.types.is_numeric_dtype(column_type):
-        task_type = "regression"
-        print("re")
-    else:
-        task_type = "classification"
-        print("cl")
+    # if pd.api.types.is_numeric_dtype(column_type):
+    #     task_type = "regression"
+    #     print("re")
+    # else:
+    #     task_type = "classification"
+    #     print("cl")
 
 if data is not None: 
     Technique=["Mean","Median", "Mode"]
     category_list=["Most frequent","add Additional class" ]
-    if task_type=="regression":
-            Technique_type= st.selectbox("Choics the Technique that you want to apply",
+    # if task_type=="regression":
+    Technique_type= st.selectbox("Choics the Technique that you want to apply in numerical data",
                     Technique)
             # clf = setup(data=data, target=Target_Column,numeric_features=list_of_data,fix_imbalance=True, verbose=False)
-            if Technique_type=="Mean":
-                data[Target_Column].fillna(data[Target_Column].mean(), inplace=True)
-                st.write(data)
-            elif Technique_type=="Median":
-                data[Target_Column].fillna(data[Target_Column].median(), inplace=True)
-                st.write(data)
-            elif Technique_type=="Mode":
-                data[Target_Column].fillna(data[Target_Column].mode(), inplace=True)
-                st.write(data)
-    elif task_type=="classification":
-            Technique_type= st.selectbox("Choics the Technique that you want to apply",
+    for col in numeric_cols :
+        if Technique_type=="Mean":
+            data[col].fillna(data[col].mean(), inplace=True)
+            # st.write(data)
+        elif Technique_type=="Median":
+            data[col].fillna(data[col].median(), inplace=True)
+            # st.write(data)
+        elif Technique_type=="Mode":
+            data[col].fillna(data[col].mode(), inplace=True)
+            # st.write(data)
+    st.write(data)
+    # elif task_type=="classification":
+    Technique_type= st.selectbox("Choics the Technique that you want to apply in categorical data",
                     category_list)
             # clf = setup(data=data, target=Target_Column)
-            if Technique_type=="Most frequent":
-                data[Target_Column].fillna(data[Target_Column].mode(), inplace=True)
-                st.write(data)
-            elif Technique_type=="add Additional class":
-                data[Target_Column].fillna("Unknown", inplace=True)
-                st.write(data)
+    for col in categorical_cols  :
+        if Technique_type=="Most frequent":
+            data[col].fillna(data[col].mode(), inplace=True)
+            # st.write(data)
+        elif Technique_type=="add Additional class":
+            data[col].fillna("Unknown", inplace=True)
+            # st.write(data)
+    st.write(data)
+    
+    st.text('Target Column')
+
+    Target_Column= st.selectbox("Choics the column that you want to predict",
+                    list_of_data)
+
 
     clf = setup(data=data, target=Target_Column)
 
@@ -107,4 +113,8 @@ if data is not None:
     st.write("pycaret algorithms")
     print(final_report)
     st.write(final_report)
+
+
+
+
 
