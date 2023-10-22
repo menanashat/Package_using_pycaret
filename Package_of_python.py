@@ -29,9 +29,6 @@ if data is not None :
 # st.header("Perform EDA")
 # st.text("Handle null values")
 #Detect column types:
-if data is not None:
-    numeric_cols = data.select_dtypes(include=['int64', 'float64']).columns
-    categorical_cols = data.select_dtypes(include=['object']).columns
 
 #Handle null values
 
@@ -57,6 +54,12 @@ if data is not None :
     data=data.drop(colsLinea,axis=1)
     list_of_data=data.columns
     st.write(data)
+
+
+
+if data is not None:
+    numeric_cols = data.select_dtypes(include=['int64', 'float64']).columns
+    categorical_cols = data.select_dtypes(include=['object']).columns
 
 # Detect column type
     # column_type = data[Target_Column].dtype
