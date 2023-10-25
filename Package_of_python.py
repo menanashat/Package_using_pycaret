@@ -54,6 +54,9 @@ if data is not None :
     data=data.drop(colsLinea,axis=1)
     list_of_data=data.columns
     st.write(data)
+
+if data is not None :  
+    st.text('Target Column')
     Target_Column= st.selectbox("Choics the column that you want to predict",
                     list_of_data)
 
@@ -104,7 +107,7 @@ if data is not None:
             # st.write(data)
     st.write(data)
     
-    st.text('Target Column')
+ 
 
     
 
