@@ -54,7 +54,8 @@ if data is not None :
     data=data.drop(colsLinea,axis=1)
     list_of_data=data.columns
     st.write(data)
-
+    Target_Column= st.selectbox("Choics the column that you want to predict",
+                    list_of_data)
 
 
 if data is not None:
@@ -105,14 +106,14 @@ if data is not None:
     
     st.text('Target Column')
 
-    Target_Column= st.selectbox("Choics the column that you want to predict",
-                    list_of_data)
+    
 
 
     clf = setup(data=data, target=Target_Column)
-
+    
     best_model = compare_models()
     final_report = pull()
+    st.write("wait for one mintue please")
     st.write("pycaret algorithms")
     print(final_report)
     st.write(final_report)
