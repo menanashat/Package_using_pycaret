@@ -23,7 +23,7 @@ if data is not None :
         st.write(data.head(10))
     else :
             st.info("Please upload a csv or xlsx file")
-    	
+        
 
 
 # st.header("Perform EDA")
@@ -45,8 +45,10 @@ if data is not None :
 st.text('Drop any column you want')
 
 if data is not None :
-    list_of_data=data.columns
+    list_of_data=list(data.columns)
+    list_of_data.insert(0, "  ")  # Add an empty string at the beginning
 
+    print(list_of_data)
     colsLinea = st.multiselect("Choics Column",
                     list_of_data)
     # btn=st.button('Drop this Column')
@@ -56,6 +58,8 @@ if data is not None :
     st.write(data)
 
 if data is not None :  
+    list_of_data=list(data.columns)
+    list_of_data.insert(0, " ")
     st.text('Target Column')
     Target_Column= st.selectbox("Choics the column that you want to predict",
                     list_of_data)
@@ -107,21 +111,16 @@ if data is not None:
             # st.write(data)
     st.write(data)
     
- 
-
-    
-
-
-    clf = setup(data=data, target=Target_Column)
-    
-    best_model = compare_models()
-    final_report = pull()
-    st.write("wait for one mintue please")
-    st.write("pycaret algorithms")
-    print(final_report)
-    st.write(final_report)
+    try:
+        clf = setup(data=data, target=Target_Column)
+        best_model = compare_models()
+        final_report = pull()
+        st.write("wait for one mintue please")
+        st.write("pycaret algorithms")
+        print(final_report)
+        st.write(final_report)
+    except Exception as e:
+        st.write("invalid input")
 
 
-
-
-
+   
